@@ -1,0 +1,14 @@
+export(
+  ClusterLevel,
+  Clusters,
+  GiniVar,
+  KgroupAdd,
+  KgroupsPoint,
+  KgroupsPair,
+  OnePass,
+  PairOnePass,
+  VarComp
+)
+
+importFrom("stats", "dist")
+importFrom("energy", "edist")
