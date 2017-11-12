@@ -1,14 +1,20 @@
 export(
+  kgroups,
   ClusterLevel,
   Clusters,
-  GiniVar,
   KgroupAdd,
   KgroupsPoint,
   KgroupsPair,
   OnePass,
   PairOnePass,
-  VarComp
+  between_cluster,
+  distance_components
 )
 
-importFrom("stats", "dist")
-importFrom("energy", "edist")
+importFrom("stats", "as.dist", "dist", "model.matrix")
+importFrom("energy", "edist", "disco")
+
+S3method(print, kgroups)
+S3method(fitted, kgroups)
+S3method(summary, kgroups)
+
