@@ -45,12 +45,12 @@ KgroupsPoint <- function(data, clusters, a = 1, iter.max = 10, nstart = 1) {
 
   # results
 
-  dd <- VarComp(data, best$Level, a)
+  dd <- GiniComp(data, best$Level, a)
   RETVAL <- structure(list(cluster = best$Level,
                            total = dd$B + dd$W,
                            withins = dd$W,
                            betweens = dd$B,
                            groups = best$Clus),
-                      class = "kgroups")
+                      class = "kgroupsClusters")
   RETVAL
 }

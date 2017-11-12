@@ -3,7 +3,7 @@ OnePass <- function(data, level, a = 1) {
   c <- length(unique(level))
   n <- NROW(Data)
   clusinf <- Clusters(level)
-  dist <- matrix(0, 1, c)
+  dst <- matrix(0, 1, c)
   level0 <- level
   newlevel <- level
   for (k in 1:n) {
@@ -17,17 +17,17 @@ OnePass <- function(data, level, a = 1) {
         M <- rbind(vector, matrix(Data[clusinf$clus[[m]], ], n1,
                                   NCOL(Data)))
         size <- c(1, n1)
-        dist[m] <- ifelse(isTRUE(all.equal(level[k], m)),
+        dst[m] <- ifelse(isTRUE(all.equal(level[k], m)),
                           (n1 + 1) * edist(M, size, alpha = a)/(2 * (n1 - 1)),
                           (n1 + 1) * edist(M, size, alpha = a)/(2 * (n1 + 1)))
       }
-      newlevel[k] <- which.min(dist)
+      newlevel[k] <- which.min(dst)
     }
     level <- newlevel
     clusinf <- Clusters(newlevel)
   }
   move <- n - sum(as.numeric(newlevel == level0))
-  comp <- VarComp(Data, newlevel, a)
+  comp <- GiniComp(Data, newlevel, a)
   clus <- Clusters(newlevel)
   return(list(Clus = clus, Level = newlevel, Move = move, Within = comp$W,
               Between = comp$B))
