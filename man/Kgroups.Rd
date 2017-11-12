@@ -1,31 +1,35 @@
-\name{Kgroups}
-\alias{KgroupsPoint}
-\alias{KgroupsPair}
+\name{kgroups}
+\alias{kgroups}
 
 \title{
-K-groups clustering functions
+K-groups clustering
 }
 \description{
-Functions that implement the k-groups energy distance clustering algorithms.
+Perform k-groups clustering by energy distance.
 }
 \usage{
-KgroupsPoint(data, clusters, a=1.0, iter.max=10, nstart=1)
-KgroupsPair(data, clusters, a=1.0, iter.max=10, nstart=1)
+kgroups(x, k, iter.max = 10, nstart = 1, method = c("points", "pairs"), alpha = 1)
 }
 \arguments{
-  \item{data}{Data frame or data matrix to be clustered}
-  \item{clusters}{Number of clusters}
-  \item{a}{Index can take any value between 0 and 2}
-  \item{iter.max}{The max number of iterations}
-  \item{nstart}{Number of restarts}
+  \item{x}{Data frame or data matrix to be clustered}
+  \item{k}{number of clusters}
+  \item{iter.max}{maximum number of iterations}
+  \item{nstart}{number of restarts}
+  \item{method}{which algorithm to use}
+  \item{alpha}{exponent on distance, between 0 and 2}
 }
 
 \value{
-\item{cluster}{A vector of cluster indices}
-\item{total}{The total gini variance of the data}
-\item{betweens}{The Gini variance between the clusters}
-\item{withins}{The sum of Gini variance of the clusters}
-\item{groups}{The list of index vectors for all clusters}
+An object of class kgroups containing the components
+\item{cluster}{vector of cluster indices}
+\item{total}{total Gini variance of the data}
+\item{betweens}{between cluster distances}
+\item{withins}{sum of Gini within variance of the clusters}
+\item{groups}{list of index vectors for all clusters}
+\item{dst}{distance matrix of the data}
+\item{call}{the function call}
+\item{method}{the kgroups method applied}
+\item{message}{"OK" or a character string giving a warning message}
 }
 
 \author{
@@ -38,8 +42,15 @@ Ph.D. thesis, Bowling Green State University.
 }
 \examples{
 x <- iris[ ,1:4]
-KgroupsPoint(x, clusters=3)
-KgroupsPair(x, clusters=3)
+set.seed(1111)
+kgroups(x, k = 3)
+
+set.seed(1111)
+kgroups(x, k = 3, nstart = 5)
+
+set.seed(1111)
+summary(kgroups(x, k = 3, method = "points"))
+summary(kgroups(x, k = 3, method = "pairs"))
 }
 
 \keyword{ cluster }
