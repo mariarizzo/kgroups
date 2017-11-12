@@ -26,12 +26,7 @@ k-groups: A Generalization of k-means by Energy Distance,
 Ph.D. thesis, Bowling Green State University.
 }
 \author{
-Songzi Li and Maria Rizzo
+Songzi Li
 }
-\examples{
-##---- Should be DIRECTLY executable !! ----
-}
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
 \keyword{ cluster }
 \keyword{ multivariate }
