@@ -37,5 +37,5 @@ k-groups: A Generalization of k-means by Energy Distance,
 Ph.D. thesis, Bowling Green State University.
 }
 \author{
-Songzi Li and Maria Rizzo
+Songzi Li
 }

@@ -29,7 +29,7 @@ An object containing:
 \item{a}{Index value between 0 and 2}
 }
 \author{
-Songzi Li and Maria Rizzo
+Songzi Li
 }
 \references{
 Li, Songzi (2015).

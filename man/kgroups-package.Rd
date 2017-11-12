@@ -1,8 +1,7 @@
 \name{kgroups-package}
 \alias{kgroups-package}
-\alias{kgroups}
 \docType{package}
-\title{k-groups
+\title{K-groups Clustering
 }
 \description{
 Implentation of the energy-distance based k-groups clustering algorithms.
