@@ -57,20 +57,22 @@ Vol. 4, No. 2, 1034-1055.
 \cr \url{http://dx.doi.org/10.1214/09-AOAS245}
 }
 \examples{
-x <- iris[ ,1:4]
-CL <- kgroups(x, k = 3)
-CL
-between_cluster(CL$cluster, dist(x))
-dc <- distance_components(CL$cluster, dist(x))
-dc$withins
-dc$W
+## checking the decompositions vs disco on unequal sample sizes
+i1 <- 1:50
+i2 <- 55:88
+i3 <- 120:142
+i <- c(i1, i2, i3)
+x <- iris[i, 1:4]
+group <- as.integer(iris$Species[i])
+dx <- dist(x)
 
-## checking distance calculations for unbalanced design
-i <- c(1:40, 51:100, 101:131) #sizes 40, 50, 30
-g <- as.integer(iris$Species[i])
-y <- iris[i, 1:4]
-between_cluster(g, dist(x))
-energy::edist(y, c(40, 50, 30), method="discoB")
+B <- between_cluster(group, dx)
+D <- distance_components(group, dx)
+B
+D
+energy::disco(iris[i,1:4], factors=iris$Species[i], R=0)
+energy::disco(iris[i,1:4], factors=iris$Species[i], R=0, method="discoB")
+
 }
 
 \keyword{ cluster }
