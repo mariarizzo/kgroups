@@ -18,7 +18,7 @@ KgroupAdd <- function(data1, level, data2, a = 1) {
   }
   newlevel <- c(level, addlevel)
   Data <- rbind(data1, data2)
-  comp <- VarComp(Data, newlevel, a)
+  comp <- GiniComp(Data, newlevel, a)
   clus <- Clusters(newlevel)
   return(list(Clus = clus, cluster = newlevel, Dist = dst, Within = comp$W,
               Between = comp$B))
