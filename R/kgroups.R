@@ -29,7 +29,10 @@ kgroups <- function(x, k, iter.max = 10, nstart = 1,
                          method = method,
                          data = x,
                          k = k,
-                         alpha = alpha),
+                         iter.max = iter.max,
+                         nstart = nstart,
+                         alpha = alpha,
+                         iterations = cl$iterations),
                          class = "kgroups")
   obj
 }
@@ -40,42 +43,60 @@ fitted.kgroups <- function (object, ...) {
 }
 
 print.kgroups <- function(x, ...) {
-  cat("K-groups cluster analysis\n")
-  cat(x$k, " groups of size ", x$sizes, "\n")
-  cat("\nDistance Components:\n")
-  cat(sprintf("%15s %15s %15s\n", "Between", "Within", "Total"))
-  cat(sprintf("%15.5f %15.5f %15.5f\n",
-              x$between, x$within, x$total), "\n")
-  cat("Within cluster distances:\n", x$withins, "\n")
-}
-
-## summary should return a value of class summary.kgroups
-## then write a print method for that object
-
-
-summary.kgroups <- function(object, ...) {
-  x <- object
-  cat("\nK-groups cluster analysis\n")
-  g <- as.integer(x$cluster)
-  ix <- rank(g, ties.method="first")
-  sizes <- table(g)
-  cat("Cluster sizes ", as.vector(sizes), "\n")
-  cat("Between cluster energy distance:\n")
-  print(object$betweens)
-  cat("Within cluster energy distance:\n")
-  cat(object$withins, "\n")
-
-  e <- energy::disco(x$data, factors=g, distance=FALSE, index=object$alpha, R=0)
+  cat("K-groups cluster analysis for k =", x$k, "\n")
+  cat("Method:", x$method, "  Exponent on distance", x$alpha, "\n")
+  cat("Cluster sizes", x$sizes, "\n")
+  cat("\nWithin cluster dispersion\n")
+  cat(x$withins, "\n")
+  cat("\nMax iterations", x$ter.max, "  Number of starts", x$nstart, "\n")
+  cat("Iterations per start: ", x$iterations, "\n")
+  e <- energy::disco(x$data, factors=x$cluster, distance=FALSE, index=x$alpha, R=0)
   print(e)
-  md1 <- e$between / e$Df.trt
-  md2 <- e$within / e$Df.e
-  f0 <- e$statistic
-  cat(sprintf("\n\nK-groups Distance Components: alpha %5.2f\n", x$alpha))
-  cat(sprintf("%-10s %4s %10s %10s %10s\n", " ", "Df", "Sum Dist",
-              "Mean Dist", "F ratio"))
-  cat(sprintf("%-10s %4d %10.5f %10.5f %10.3f\n", "Between",
-              e$Df.trt, e$between, md1, f0))
-  cat(sprintf("%-10s %4d %10.5f %10.5f\n", "Within",
-              e$Df.e, e$within, md2))
-  cat(sprintf("%-10s %4d %10.5f\n", "Total", e$N - 1, e$total))
+  cat("Available components:\n", paste(names(x), sep = "  "), "\n")
 }
+
+#
+# summary.kgroups <- function(object, ...) {
+#   cl <- object
+#   dst <- dist(cl$data)
+#   dco <- distance_components(cl$cluster, dst)
+#   e <- energy::disco(cl$data, factors=cl$cluster, distance=FALSE, index=cl$alpha, R=0)
+#   obj  <- structure(list(cluster = cl$cluster,
+#                          sizes = cl$sizes,
+#                          between = cl$betweens,
+#                          within = cl$withins,
+#                          total = cl$total,
+#                          betweens = dco$betweens,
+#                          withins = dco$withins,
+#                          groups = cl$groups,
+#                          call = cl$call,
+#                          method = cl$method,
+#                          data = cl$data,
+#                          k = cl$k,
+#                          alpha = cl$alpha),
+#                     class = "summary.kgroups")
+#   obj
+# }
+#
+#
+# print.summary.kgroups <- function(object, ...) {
+#   cat("Cluster sizes ", as.vector(object$sizes), "\n")
+#   cat("Between cluster energy distance:\n")
+#   print(object$betweens)
+#   cat("Within cluster energy distance:\n")
+#   cat(object$withins, "\n")
+#
+#   e <- energy::disco(x$data, factors=object$cluster, distance=FALSE, index=object$alpha, R=0)
+#   print(e)
+#   md1 <- e$between / e$Df.trt
+#   md2 <- e$within / e$Df.e
+#   f0 <- e$statistic
+#   cat(sprintf("\n\nK-groups Distance Components: alpha %5.2f\n", x$alpha))
+#   cat(sprintf("%-10s %4s %10s %10s %10s\n", " ", "Df", "Sum Dist",
+#               "Mean Dist", "F ratio"))
+#   cat(sprintf("%-10s %4d %10.5f %10.5f %10.3f\n", "Between",
+#               e$Df.trt, e$between, md1, f0))
+#   cat(sprintf("%-10s %4d %10.5f %10.5f\n", "Within",
+#               e$Df.e, e$within, md2))
+#   cat(sprintf("%-10s %4d %10.5f\n", "Total", e$N - 1, e$total))
+# }
