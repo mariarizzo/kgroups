@@ -1,11 +1,11 @@
 Package: kgroups
 Type: Package
-Title: Clustering by k-groups using energy distance
-Version: 0.1.0
+Title: Clustering by K-groups using Energy Distance
+Version: 0.1.1
 Author: Songzi Li and Maria Rizzo
 Maintainer: Maria Rizzo <mrizzo@bgsu.edu>
 Imports: stats, energy
-Description: k-groups is a generalization of k-means cluster analysis method which is based on the multisample energy distance.
+Description: k-groups is a generalization of k-means cluster analysis method based on the energy cluster distance.
 License: GPL(>=2.0)
 Encoding: UTF-8
 LazyData: true
