@@ -1,10 +1,10 @@
 PairOnePass <- function(data, level, a = 1) {
   # the number of obs must be even
   Data <- as.matrix(data)
-  c <- length(unique(level))
+  nc <- length(unique(level))
   clusinf <- Clusters(level)
   n <- NROW(Data)
-  dst <- matrix(0, n/2, c)
+  dst <- matrix(0, n/2, nc)
   level0 <- level
   newlevel <- level
   for (k in 1:(n/2)) {
@@ -21,7 +21,7 @@ PairOnePass <- function(data, level, a = 1) {
       newlevel[2 * k - 1] <- level[2 * k - 1]
     }
     if (s > 2) {
-      for (m in 1:c) {
+      for (m in 1:nc) {
         n1 <- NROW(Data[clusinf$clus[[m]], ])
         M <- rbind(vector, matrix(Data[clusinf$clus[[m]], ], n1,
                                   NCOL(Data)))

@@ -1,9 +1,9 @@
 OnePass <- function(data, level, a = 1) {
   Data <- as.matrix(data)
-  c <- length(unique(level))
+  nc <- length(unique(level))
   n <- NROW(Data)
   clusinf <- Clusters(level)
-  dst <- matrix(0, 1, c)
+  dst <- matrix(0, 1, nc)
   level0 <- level
   newlevel <- level
   for (k in 1:n) {
@@ -12,7 +12,7 @@ OnePass <- function(data, level, a = 1) {
     if (s == 1) {
       newlevel[k] <- level[k]
     } else if (s > 1) {
-      for (m in 1:c) {
+      for (m in 1:nc) {
         n1 <- NROW(Data[clusinf$clus[[m]], ])
         M <- rbind(vector, matrix(Data[clusinf$clus[[m]], ], n1,
                                   NCOL(Data)))

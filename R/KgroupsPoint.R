@@ -1,8 +1,8 @@
 KgroupsPoint <- function(data, clusters, a = 1, iter.max = 10, nstart = 1) {
   # initialized
   n <- NROW(data)
-  c <- clusters
-  level <- sample.int(c, n, replace = TRUE)
+  clstr <- clusters
+  level <- sample.int(clstr, n, replace = TRUE)
 
   it <- 1
   while (it < iter.max) {
@@ -15,6 +15,7 @@ KgroupsPoint <- function(data, clusters, a = 1, iter.max = 10, nstart = 1) {
 
   if (it == iter.max)
     warning("Reached maximum iterations")
+  iterations <- it
 
   best <- out
 
@@ -25,7 +26,7 @@ KgroupsPoint <- function(data, clusters, a = 1, iter.max = 10, nstart = 1) {
     bests[[1]] <- best
     for (r in 2:nstart) {
 
-      level <- sample.int(c, size = n, replace = TRUE)
+      level <- sample.int(clstr, size = n, replace = TRUE)
 
       it <- 1
       while (it < iter.max) {
@@ -40,6 +41,7 @@ KgroupsPoint <- function(data, clusters, a = 1, iter.max = 10, nstart = 1) {
       bests[[r]] <- out
       if (out$Within < best$Within)
         best <- out
+      iterations <- c(iterations, it)
     }
   }
 
@@ -50,7 +52,8 @@ KgroupsPoint <- function(data, clusters, a = 1, iter.max = 10, nstart = 1) {
                            total = dd$B + dd$W,
                            withins = dd$W,
                            betweens = dd$B,
-                           groups = best$Clus),
+                           groups = best$Clus,
+                           iterations = iterations),
                       class = "kgroupsClusters")
   RETVAL
 }

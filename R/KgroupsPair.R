@@ -1,8 +1,8 @@
 KgroupsPair <- function(data, clusters, a = 1, iter.max = 10, nstart = 1) {
   # initialized
   n <- NROW(data)
-  c <- clusters
-  lvlindex <- sample.int(c, n/2, replace = TRUE)
+  clstr <- clusters
+  lvlindex <- sample.int(clstr, n/2, replace = TRUE)
   level <- numeric(0)
   for (i in 1:(n/2)) {
     level[2 * i - 1] <- lvlindex[i]
@@ -20,6 +20,7 @@ KgroupsPair <- function(data, clusters, a = 1, iter.max = 10, nstart = 1) {
 
   if (it == iter.max)
     warning("Reached maximum iterations")
+  iterations <- it
 
   best <- out
 
@@ -29,7 +30,7 @@ KgroupsPair <- function(data, clusters, a = 1, iter.max = 10, nstart = 1) {
     bests <- list()
     bests[[1]] <- best
     for (r in 2:nstart) {
-      lvlindex <- sample.int(c, n/2, replace = TRUE)
+      lvlindex <- sample.int(clstr, n/2, replace = TRUE)
       level <- numeric(0)
       for (i in 1:(n/2)) {
         level[2 * i - 1] <- lvlindex[i]
@@ -48,6 +49,7 @@ KgroupsPair <- function(data, clusters, a = 1, iter.max = 10, nstart = 1) {
       bests[[r]] <- out
       if (out$Within < best$Within)
         best <- out
+      iterations <- c(iterations, it)
     }
   }
 
@@ -58,7 +60,8 @@ KgroupsPair <- function(data, clusters, a = 1, iter.max = 10, nstart = 1) {
                            total = dd$B + dd$W,
                            withins = dd$W,
                            betweens = dd$B,
-                           groups = best$Clus),
+                           groups = best$Clus,
+                           iterations = iterations),
                       class = "kgroupsClusters")
   RETVAL
 }
