@@ -43,14 +43,10 @@ Ph.D. thesis, Bowling Green State University.
 \examples{
 x <- iris[ ,1:4]
 set.seed(1111)
-kgroups(x, k = 3)
+kgroups(x, k = 3, nstart = 2)
 
 set.seed(1111)
-kgroups(x, k = 3, nstart = 5)
-
-set.seed(1111)
-summary(kgroups(x, k = 3, method = "points"))
-summary(kgroups(x, k = 3, method = "pairs"))
+kgroups(x, k = 3, method = "pairs")
 }
 
 \keyword{ cluster }
