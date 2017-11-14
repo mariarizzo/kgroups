@@ -1,6 +1,5 @@
 \name{distance components}
 \alias{distance_components}
-\alias{between_cluster}
 
 \title{
 Distance components (disco) decomposition for clusters
@@ -11,12 +10,10 @@ terms, and the decomposition into total = between + within.
 }
 \usage{
 distance_components(group, distance)
-between_cluster(clusters, distance)
 }
 \arguments{
   \item{distance}{dist object for the pooled sample}
   \item{group}{vector of group labels}
-  \item{clusters}{vector of cluster labels}
 }
 \details{
 The group labels are typically the clustering vector from a cluster analysis,
@@ -42,9 +39,6 @@ the decomposition.
 \item{N}{size of pooled sample}
 \item{betweens}{between cluster distances as dist object}
 \item{withins}{vector of Gini within variance of the clusters}
-
-\code{between_cluster} returns the between cluster (energy) distances
-as a \code{dist} object.
 }
 \author{
 Maria Rizzo
@@ -66,13 +60,10 @@ x <- iris[i, 1:4]
 group <- as.integer(iris$Species[i])
 dx <- dist(x)
 
-B <- between_cluster(group, dx)
 D <- distance_components(group, dx)
-B
 D
 energy::disco(iris[i,1:4], factors=iris$Species[i], R=0)
 energy::disco(iris[i,1:4], factors=iris$Species[i], R=0, method="discoB")
-
 }
 
 \keyword{ cluster }
