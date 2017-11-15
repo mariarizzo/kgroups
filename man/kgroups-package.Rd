@@ -22,6 +22,10 @@ Songzi Li and Maria Rizzo
 Li, Songzi (2015).
 k-groups: A Generalization of k-means by Energy Distance,
 Ph.D. thesis, Bowling Green State University.
+
+Songzi Li and Maria L. Rizzo (2017).
+K-groups: A Generalization of K-means Clustering, ArXiv e-prints, 1711.04359.
+https://arxiv.org/abs/1711.04359
 }
 \keyword{ package }
 \keyword{ cluster }
