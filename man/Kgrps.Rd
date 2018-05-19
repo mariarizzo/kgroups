@@ -40,6 +40,17 @@ Songzi Li
 Li, Songzi (2015).
 k-groups: A Generalization of k-means by Energy Distance,
 Ph.D. thesis, Bowling Green State University.
+
+Li, S. and Rizzo, M. L. (2017).
+"K-groups: A Generalization of K-means Clustering".
+ArXiv e-print 1711.04359. https://arxiv.org/abs/1711.04359
+
+Szekely, G. J., and M. L. Rizzo. "Testing for equal distributions in high dimension."
+InterStat 5, no. 16.10 (2004).
+
+Rizzo, M. L., and G. J. Szekely.
+"Disco analysis: A nonparametric extension of analysis of variance."
+The Annals of Applied Statistics (2010): 1034-1055.
 }
 \seealso{
 \link{kgroups}
