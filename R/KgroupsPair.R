@@ -9,7 +9,7 @@ KgroupsPair <- function(data, clusters, a = 1, iter.max = 10, nstart = 1) {
     level[2 * i] <- lvlindex[i]
   }
 
-  it <- 1
+  it <- 0
   while (it < iter.max) {
     out <- PairOnePass(data, level, a)
     if (out$Move < 1)
@@ -36,7 +36,7 @@ KgroupsPair <- function(data, clusters, a = 1, iter.max = 10, nstart = 1) {
         level[2 * i - 1] <- lvlindex[i]
         level[2 * i] <- lvlindex[i]
       }
-      it <- 1
+      it <- 0
       while (it < iter.max) {
         out <- PairOnePass(data, level, a)
         if (out$Move < 1)

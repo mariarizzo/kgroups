@@ -4,7 +4,7 @@ KgroupsPoint <- function(data, clusters, a = 1, iter.max = 10, nstart = 1) {
   clstr <- clusters
   level <- sample.int(clstr, n, replace = TRUE)
 
-  it <- 1
+  it <- 0
   while (it < iter.max) {
     out <- OnePass(data, level, a)
     if (out$Move < 1)
@@ -28,7 +28,7 @@ KgroupsPoint <- function(data, clusters, a = 1, iter.max = 10, nstart = 1) {
 
       level <- sample.int(clstr, size = n, replace = TRUE)
 
-      it <- 1
+      it <- 0
       while (it < iter.max) {
         out <- OnePass(data, level, a)
         if (out$Move < 1)
