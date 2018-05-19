@@ -1,7 +1,7 @@
 Package: kgroups
 Type: Package
 Title: Clustering by K-groups using Energy Distance
-Version: 0.1.1
+Version: 0.1.2
 Author: Songzi Li and Maria Rizzo
 Maintainer: Maria Rizzo <mrizzo@bgsu.edu>
 Imports: stats, energy
