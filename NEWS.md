@@ -3,6 +3,7 @@
 ### version 0.1.3
 
 * fixed a bug in OnePass.R at updating step for within cluster (bug inherited from original code of S. Li)
+* other minor internal changes
 
 ### version 0.1.2
 
