@@ -18,8 +18,8 @@ OnePass <- function(data, level, a = 1) {
                                   NCOL(Data)))
         size <- c(1, n1)
         dst[m] <- ifelse(isTRUE(all.equal(level[k], m)),
-                          (n1 - 1) * edist(M, size, alpha = a)/(2 * (n1 - 1)),
-                          (n1 + 1) * edist(M, size, alpha = a)/(2 * (n1 + 1)))
+                          (n1 - 1) * energy::edist(M, size, alpha = a)/(2 * (n1 - 1)),
+                          (n1 + 1) * energy::edist(M, size, alpha = a)/(2 * (n1 + 1)))
       }
       newlevel[k] <- which.min(dst)
     }

@@ -28,7 +28,7 @@ PairOnePass <- function(data, level, a = 1) {
         size <- c(2, n1)
         dst[k, m] <- ifelse(isTRUE(all.equal(c(level[2 * k - 1],
                                                 level[2 * k]), c(m, m))),
-                             (n1 + 2) * edist(M, size, alpha = 1)/(2 *
+                             (n1 + 2) * energy::edist(M, size, alpha = 1)/(2 *
                                                                                                                   (n1 - 2)), edist(M, size, alpha = 1)/2)
       }
       newlevel[2 * k] <- which.min(dst[k, ])
