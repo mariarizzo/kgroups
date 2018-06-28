@@ -8,13 +8,13 @@ OnePass <- function(data, level, a = 1) {
   newlevel <- level
   for (k in 1:n) {
     s <- length(clusinf$clus[[level[k]]])
-    vector <- matrix(Data[k, ], 1, NCOL(Data))
+    vec <- matrix(Data[k, ], 1, NCOL(Data))
     if (s == 1) {
       newlevel[k] <- level[k]
     } else if (s > 1) {
       for (m in 1:nc) {
         n1 <- NROW(Data[clusinf$clus[[m]], ])
-        M <- rbind(vector, matrix(Data[clusinf$clus[[m]], ], n1,
+        M <- rbind(vec, matrix(Data[clusinf$clus[[m]], ], n1,
                                   NCOL(Data)))
         size <- c(1, n1)
         dst[m] <- ifelse(isTRUE(all.equal(level[k], m)),
