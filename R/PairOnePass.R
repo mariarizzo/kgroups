@@ -11,7 +11,7 @@ PairOnePass <- function(data, level, a = 1) {
     s1 <- length(clusinf$clus[[level[2 * k - 1]]])
     s2 <- length(clusinf$clus[[level[2 * k]]])
     s <- min(s1, s2)
-    vector <- matrix(Data[c(2 * k, 2 * k - 1), ], 2, NCOL(Data))
+    vec <- matrix(Data[c(2 * k, 2 * k - 1), ], 2, NCOL(Data))
     if (s == 2) {
       newlevel[2 * k] <- level[2 * k]
       newlevel[2 * k - 1] <- level[2 * k - 1]
@@ -23,7 +23,7 @@ PairOnePass <- function(data, level, a = 1) {
     if (s > 2) {
       for (m in 1:nc) {
         n1 <- NROW(Data[clusinf$clus[[m]], ])
-        M <- rbind(vector, matrix(Data[clusinf$clus[[m]], ], n1,
+        M <- rbind(vec, matrix(Data[clusinf$clus[[m]], ], n1,
                                   NCOL(Data)))
         size <- c(2, n1)
         dst[k, m] <- ifelse(isTRUE(all.equal(c(level[2 * k - 1],
