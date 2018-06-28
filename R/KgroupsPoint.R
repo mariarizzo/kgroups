@@ -13,10 +13,7 @@ KgroupsPoint <- function(data, clusters, a = 1, iter.max = 10, nstart = 1) {
     it <- it + 1
   }
 
-  if (it == iter.max)
-    warning("Reached maximum iterations")
   iterations <- it
-
   best <- out
 
   # restart with random labels

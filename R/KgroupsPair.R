@@ -44,8 +44,6 @@ KgroupsPair <- function(data, clusters, a = 1, iter.max = 10, nstart = 1) {
         level <- out$Level
         it <- it + 1
       }
-      if (it == iter.max)
-        warning("Reached maximum iterations")
       bests[[r]] <- out
       if (out$Within < best$Within)
         best <- out
