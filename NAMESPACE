@@ -1,12 +1,9 @@
 export(
-  kgroups,
-  KgroupsPoint,
-  KgroupsPair,
-  distance_components
+  kgroups
 )
 
-importFrom("stats", "as.dist", "dist", "model.matrix")
-importFrom("energy", "edist", "disco")
+importFrom("stats", "dist")
 
 S3method(print, kgroups)
+S3method(fitted, kgroups)
 

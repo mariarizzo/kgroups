@@ -1,7 +1,8 @@
-# kgroups
-Clustering by k-groups using energy distance
+# K-groups
 
-k-groups is a generalization of k-means cluster analysis method which is based on the multisample energy distance.
+K-groups implements energy clustering for a specified number of classes by energy distance criterion. 
+
+This package replaces the pre-release version of 2017-11-17 kgroups 0.1.3 at https://github.com/mariarizzo/kgroups, which remains available in a branch. This version is not an update but a new version. It is entirely rewritten and at least 100 times faster as of version 0.2.0. 
 
 References:
 
@@ -10,7 +11,7 @@ References:
 https://arxiv.org/abs/1711.04359
 
 2. Li, Songzi (2015).
-"k-groups: A Generalization of k-means by Energy Distance,""
+"k-groups: A Generalization of k-means by Energy Distance,"
 Ph.D. thesis, Bowling Green State University.
 
 3. M. L. Rizzo and G. J. Szekely (2010).
