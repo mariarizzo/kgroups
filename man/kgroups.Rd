@@ -68,8 +68,10 @@ set.seed(1111)
 kg <- kgroups(x, k = 3, nstart = 2)
 kg
 
-kg$CL
+\dontrun{
 fitted(kg)
+fitted(kg, method="groups")
+}
 }
 \keyword{ cluster }
 \keyword{ multivariate }

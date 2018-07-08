@@ -111,19 +111,22 @@ return (obj)
 }
 
 
-print.kgroups <- function(x, ...) {
-  cat("K-groups energy clustering for k =", x$k, "\n")
-  cat("Cluster sizes", x$sizes, "\n")
-  cat("Within cluster dispersion:\n")
-  cat(x$within, "\n")
-  cat("Iterations: ", x$iterations, " Counter: ", x$count, "\n")
-}
 
+print.kgroups <- function(x, ...) {
+  cat("\n"); print(x$call)
+  cat("\nK-groups cluster analysis\n")
+  cat(x$k, " groups of size ", x$sizes, "\n")
+  cat("Within cluster distances:\n", x$within)
+  cat("\nIterations: ", x$iterations, "  Count: ", x$count, "\n")
+}
 
 fitted.kgroups <- function(object, method = c("labels", "groups"), ...) {
   method = match.arg(method)
-  if (method == "labels")
-    return (object$cluster)
-  return (object$CL)
+  if (method == "groups") {
+    CList <- vector("list", object$k)
+    for (i in 1:object$k) 
+      CList[[i]] <- which(object$cluster == i)
+    return (CList)
+  }
+  return (object$cluster)
 }
-
