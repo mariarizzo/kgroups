@@ -2,7 +2,7 @@
 
 K-groups implements energy clustering for a specified number of classes by energy distance criterion. 
 
-This package replaces the pre-release version of 2017-11-17 kgroups 0.1.3 at https://github.com/mariarizzo/kgroups, which remains available in a branch. This version is not an update but a new version. It is entirely rewritten and at least 100 times faster as of version 0.2.0. 
+This package replaces the pre-release version of 2017-11-17 kgroups 0.1.3 at https://github.com/mariarizzo/kgroups, which remains available in a branch. Version 0.2.0 is not an update but a new version. It is entirely rewritten and at least 100 times faster than 0.1.3. Version 0.2.1 is a major rewrite, with all but top level function re-implemented in Rcpp. 
 
 References:
 
