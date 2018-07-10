@@ -2,77 +2,96 @@
 \alias{kgroups}
 
 \title{
-K-groups Clustering
+K-Groups Clustering
 }
 \description{
 Perform k-groups clustering by energy distance.
 }
 \usage{
-kgroups(x, k, iter.max = 10, nstart = 1, clus = NULL)
+kgroups(x, k, iter.max = 10, nstart = 1, cluster = NULL)
 }
 \arguments{
-  \item{x}{data to be clustered}
+  \item{x}{Data frame or data matrix or distance object}
   \item{k}{number of clusters}
   \item{iter.max}{maximum number of iterations}
   \item{nstart}{number of restarts}
-  \item{clus}{initial clustering vector}
-  \item{...}{not used}
+  \item{cluster}{initial clustering vector}
 }
+
 \details{
-K-groups is a clustering algorithm that seeks a partition of the data into k sets that maximizes the between cluster energy distance, which is equivalent to minimizing the total within cluster dispersion. This decomposition of L1 distance is analogous to, but different from, an anova decomposition of variance. The decomposition of total distance into betweeen and within components is also applied in energy package function \code{disco} and explained in the manual for \code{disco} and [RS2010]. K-groups is based on a characterization of equality of distributions, thus it is more general than k-means.
+K-groups is based on the multisample energy distance for comparing distributions.
+Based on the disco decomposition of total dispersion (a Gini type mean distance) the objective function should either maximize the total between cluster energy distance, or equivalently, minimize the total within cluster energy distance. It is more computationally efficient to minimize within distances, and that makes it possible to use a modified version of the Hartigan-Wong algorithm (1979) to implement K-groups clustering.
 
-The data argument should be a numeric data matrix, numeric data frame, or a distance object. 
+The within cluster Gini mean distance is
+\deqn{G(C_j) = \frac{1}{n_j^2} \sum_{i,m=1}^{n_j} |x_{i,j} - x_{m,j}|}
+and the K-groups within cluster distance is
+\deqn{W_j = \frac{n_j}{2}G(C_j) = \frac{1}{2 n_j} \sum_{i,m=1}^{n_j} |x_{i,j} - x_{m,j}.}
+If z is the data matrix for cluster \eqn{C_j}, then \eqn{W_j} could be computed as
+\code{sum(dist(z)) / nrow(z)}.
 
-One iteration is one complete pass through the data set, where each point is moved to a new cluster if the move improves the objective function. Up to iter.max iterations are repeated until no further improvement is possible. Then if nstart is greater than 1, the optimization is repeated with a random initialization until nstart results are obtained. The best of these results is returned.
+If cluster is not NULL, the clusters are initialized by this vector (can be a factor or integer vector). Otherwise clusters are initialized with random labels in k approximately equal size clusters.
 
-If clus is NULL, which is the default, then clusters will be initialized at random into k approximately equal size groups. If clus is not NULL, the algorithm will start by initializing with the specified cluster vector. 
+If \code{x} is not a distance object (class(x) == "dist") then \code{x} is converted to a data matrix for analysis. 
+
+Run up to \code{iter.max} complete passes through the data set until a local min is reached. If \code{nstart > 1}, on second and later starts, clusters are initialized at random, and the best result is returned. 
 }
+
 \value{
-An object of class kgroups containing the components
-\item{cluster}{vector of cluster labels}
-\item{CL}{list of clusters}
-\item{k}{the number of clusters}
-\item{sizes}{the cluster sizes}
-\item{within}{the within cluster vector}
-\item{W}{the total within cluster dispersion}
-\item{count}{the number of points moved in final pass}
-\item{iterations}{iterations completed in the best start}
+An object of class \code{kgroups} containing the components
+\item{call}{the function call}
+\item{cluster}{vector of cluster indices}
+\item{sizes}{cluster sizes}
+\item{within}{vector of Gini within cluster distances}
+\item{W}{sum of within cluster distances}
+\item{count}{number of moves}
+\item{iterations}{number of iterations}
+\item{k}{number of clusters}
 
-If there is more than one random start, the return values will be those from the best result, which is the result with the smallest total within cluster distance. The algorithm stopping rule is when count = 0 or iterations equals iter.max, so those values indicate whether the algorithm converged to a local minimum. 
+\code{cluster} is a vector containing the group labels, 1 to k. \code{print.kgroups}
+prints some of the components of the kgroups object.
 
-For convenience there is an S3 method for class kgroups that returns the clustering vector (default) or a list of vectors of the indices of the group members:
-
-fitted(object, method = c("labels", "groups"))
+Expect that count is 0 if the algorithm converged to a local min (that is, 0 moves happened on the last iteration). If iterations equals iter.max and count is positive, then the algorithm did not converge to a local min. 
 }
+
 \author{
-Maria Rizzo
+Maria Rizzo and Songzi Li
 }
+
 \references{
 Li, Songzi (2015).
-k-groups: A Generalization of k-means by Energy Distance,
+"K-groups: A Generalization of K-means by Energy Distance."
 Ph.D. thesis, Bowling Green State University.
 
 Li, S. and Rizzo, M. L. (2017).
 "K-groups: A Generalization of K-means Clustering".
-ArXiv e-print 1711.04359. \url{https://arxiv.org/abs/1711.04359}
+ArXiv e-print 1711.04359. https://arxiv.org/abs/1711.04359
 
-M. L. Rizzo and G. J. Szekely (2010).
-DISCO Analysis: A Nonparametric Extension of
-Analysis of Variance, Annals of Applied Statistics,
-Vol. 4, No. 2, 1034-1055.
-\cr \url{http://dx.doi.org/10.1214/09-AOAS245}
+Szekely, G. J., and M. L. Rizzo. "Testing for equal distributions in high dimension." InterStat 5, no. 16.10 (2004).
+
+Rizzo, M. L., and G. J. Szekely. "Disco analysis: A nonparametric extension of analysis of variance." The Annals of Applied Statistics (2010): 1034-1055.
+
+Hartigan, J. A. and Wong, M. A. (1979). "Algorithm AS 136: A K-means clustering algorithm." Applied Statistics, 28, 100-108. doi: 10.2307/2346830.
 }
+
 \examples{
-x <- iris[ ,1:4]
-set.seed(1111)
-kg <- kgroups(x, k = 3, nstart = 2)
+x <- as.matrix(iris[ ,1:4])
+set.seed(123)
+kg <- kgroups(x, k = 3, iter.max = 5, nstart = 2)
+kg
+fitted(kg)
+
+d <- dist(x)
+set.seed(123)
+kg <- kgroups(d, k = 3, iter.max = 5, nstart = 2)
 kg
 
-\dontrun{
-fitted(kg)
-fitted(kg, method="groups")
+kg$cluster
+
+\donttest{
+  fitted(kg)
+  fitted(kg, method = "groups")
+  }
 }
-}
+
 \keyword{ cluster }
 \keyword{ multivariate }
-\concept{ energy }
