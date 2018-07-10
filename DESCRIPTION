@@ -1,14 +1,18 @@
 Package: kgroups
 Title: K-Groups Clustering by Energy Distance
-Version: 0.2.0
-Date: 2018-07-01
+Version: 0.2.1
+Date: 2018-07-10
 Authors@R: c(person("Maria", "Rizzo", , "mrizzo@bgsu.edu", c("aut", "cre")),
     person("Songzi", "Li", , , "aut"))
-Description: K-groups implements energy clustering for a specified number k classes by energy distance criterion, analogous to the k classes of the k-means algorithm. K-groups is based on a characterization of equality of distributions; thus k-groups separates clusters based on all types 
-             of differences in distributions, which is more general than
-             k-means, based on differences in means. 
-Imports: stats
+Description: K-groups implements energy clustering for a specified number k classes 
+             by energy distance criterion, analogous to the k classes of the k-means 
+             algorithm. K-groups is based on a characterization of equality of 
+             distributions; thus k-groups separates clusters based on all types 
+             of differences in distributions, which is more general than k-means, 
+             which is based only on differences in means. 
 License: GPL(>=2.0)
+Imports: Rcpp (>= 0.12.17)
+LinkingTo: Rcpp
 URL: https://github.com/mariarizzo/kgroups
 LazyData: true
 

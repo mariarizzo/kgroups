@@ -1,3 +1,7 @@
+# kgroups 0.2.1
+
+* Convert all but top level function and S3 methods to Rcpp.
+
 # kgroups 0.2.0
 
 * Completely revised implementation.

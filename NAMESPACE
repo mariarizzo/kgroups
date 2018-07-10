@@ -1,8 +1,11 @@
+useDynLib(kgroups, .registration=TRUE)
+
+importFrom(Rcpp, evalCpp)
+importFrom("stats", "dist")
+
 export(
   kgroups
 )
-
-importFrom("stats", "dist")
 
 S3method(print, kgroups)
 S3method(fitted, kgroups)
